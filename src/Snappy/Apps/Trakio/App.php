@@ -33,7 +33,7 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 *
 	 * @var string
 	 */
-	public $icon = 'trak.png';
+	public $icon = 'trakio.png';
 
 	/**
 	 * The application author name.

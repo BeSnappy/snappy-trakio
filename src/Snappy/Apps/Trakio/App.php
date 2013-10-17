@@ -89,21 +89,22 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 */
 	public function handleIncomingMessage(array $message)
 	{
-		$track = array(
-			'distinct_id' => $message['contact']['value'],
-			'event' => 'Incoming Message',
-			'channel' => 'Snappy',
-			'properties' => array(
-				'ticket' => $message['id'],
-				'name' => $message['contact']['first_name']. ' ' . $message['contact']['last_name'],
-				'email' => $message['contact']['value'],
-			)
-		);
-		$client = $this->getClient();
-		$request = $client->post('/v1/track');
-		$request->setPostField('token', $this->config['token']);
-		$request->setPostField('data', json_encode($track));
-		$response = $request->send();
+		Log::info('handleIncomingMessage', $message);
+		// $track = array(
+		// 	'distinct_id' => $message['contact']['value'],
+		// 	'event' => 'Incoming Message',
+		// 	'channel' => 'Snappy',
+		// 	'properties' => array(
+		// 		'ticket' => $message['id'],
+		// 		'name' => $message['contact']['first_name']. ' ' . $message['contact']['last_name'],
+		// 		'email' => $message['contact']['value'],
+		// 	)
+		// );
+		// $client = $this->getClient();
+		// $request = $client->post('/v1/track');
+		// $request->setPostField('token', $this->config['token']);
+		// $request->setPostField('data', json_encode($track));
+		// $response = $request->send();
 	}
 
 	/**

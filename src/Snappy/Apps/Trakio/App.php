@@ -1,4 +1,4 @@
-<?php namespace Snappy\Apps\Trak;
+<?php namespace Snappy\Apps\Trakio;
 
 use Guzzle\Http\Client;
 use Snappy\Apps\App as BaseApp;

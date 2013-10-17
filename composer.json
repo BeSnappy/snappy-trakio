@@ -1,0 +1,21 @@
+{
+    "name": "snappy/trak",
+    "description": "trak.io metrics for Snappy.",
+    "authors": [
+        {
+            "name": "UserScape",
+            "email": "it@userscape.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "guzzle/guzzle": "3.7.x",
+        "snappy/app-support": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "src/"
+        ]
+    },
+    "minimum-stability": "dev"
+}

@@ -56,6 +56,8 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 */
 	public $settings = array(
 		array('name' => 'token', 'type' => 'text', 'help' => 'Enter your API Token'),
+		array('name' => 'channel', 'placeholder' => 'Snappy', 'value' => 'Snappy', 'type' => 'text', 'help' => 'Trak.io Channel Name'),
+		array('name' => 'event', 'placeholder' => 'Incoming Message', 'value' => 'Incoming Message', 'type' => 'text', 'help' => 'Trak.io event name'),
 	);
 
 	/**
@@ -91,8 +93,8 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	{
 		$track = array(
 			'distinct_id' => $message['creator']['value'],
-			'event' => 'Incoming Message',
-			'channel' => 'Snappy',
+			'event' => $this->config['event'],
+			'channel' => $this->config['channel'],
 			'properties' => array(
 				'ticket' => $message['ticket_id'],
 				'name' => $message['creator']['first_name']. ' ' . $message['creator']['last_name'],

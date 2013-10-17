@@ -89,7 +89,7 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 */
 	public function handleIncomingMessage(array $message)
 	{
-		Log::info('handleIncomingMessage', $message);
+		\Log::info('handleIncomingMessage', $message);
 		// $track = array(
 		// 	'distinct_id' => $message['contact']['value'],
 		// 	'event' => 'Incoming Message',

@@ -94,7 +94,7 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 			'event' => 'Incoming Message',
 			'channel' => 'Snappy',
 			'properties' => array(
-				'ticket' => $message['id'],
+				'ticket' => $message['ticket_id'],
 				'name' => $message['creator']['first_name']. ' ' . $message['creator']['last_name'],
 				'email' => $message['creator']['value'],
 			)

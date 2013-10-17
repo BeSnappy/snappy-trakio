@@ -56,8 +56,8 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 */
 	public $settings = array(
 		array('name' => 'token', 'type' => 'text', 'help' => 'Enter your API Token'),
-		array('name' => 'channel', 'placeholder' => 'Snappy', 'value' => 'Snappy', 'type' => 'text', 'help' => 'Trak.io Channel Name'),
-		array('name' => 'event', 'placeholder' => 'Incoming Message', 'value' => 'Incoming Message', 'type' => 'text', 'help' => 'Trak.io event name'),
+		array('name' => 'channel', 'placeholder' => 'Snappy', 'type' => 'text', 'help' => 'Trak.io Channel Name'),
+		array('name' => 'event', 'placeholder' => 'Incoming Message', 'type' => 'text', 'help' => 'Trak.io event name'),
 	);
 
 	/**
@@ -69,29 +69,24 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 */
 	public function handleContactCreated(array $ticket, array $contact)
 	{
-		$client = $this->getClient();
-		$identify = array(
-			"distinct_id" => $contact['value'],
-			"properties"=>array(
-				"name"=> $contact['first_name']. ' '. $contact['last_name'],
-				"email"=> $contact['value']
+		$this->send('identify', array(
+			'distinct_id' => $contact['value'],
+			'properties' => array(
+				'name' => $contact['first_name']. ' '. $contact['last_name'],
+				'email' => $contact['value']
 		  )
-		);
-		$request = $client->post('/v1/identify');
-		$request->setPostField('token', $this->config['token']);
-		$request->setPostField('data', json_encode($identify));
-		$response = $request->send();
+		));
 	}
 
 	/**
 	 * Track an incoming message
 	 *
-	 * @param  array  $message [description]
+	 * @param  array  $message
 	 * @return void
 	 */
 	public function handleIncomingMessage(array $message)
 	{
-		$track = array(
+		$this->send('track', array(
 			'distinct_id' => $message['creator']['value'],
 			'event' => $this->config['event'],
 			'channel' => $this->config['channel'],
@@ -100,22 +95,22 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 				'name' => $message['creator']['first_name']. ' ' . $message['creator']['last_name'],
 				'email' => $message['creator']['value'],
 			)
-		);
-		$client = $this->getClient();
-		$request = $client->post('/v1/track');
-		$request->setPostField('token', $this->config['token']);
-		$request->setPostField('data', json_encode($track));
-		$response = $request->send();
+		));
 	}
 
 	/**
-	 * Get the client instance.
+	 * Send the actual request
 	 *
-	 * @return \Guzzle\Http\Client
+	 * @param  string $action The api action
+	 * @param  array  $data   Array of properties to sent to the api
+	 * @return void
 	 */
-	public function getClient()
+	protected function send($action, array $data)
 	{
-		return new Client('http://api.trak.io/');
+		$client = new Client('http://api.trak.io/');
+		$request = $client->post('/v1/'.$action);
+		$request->setPostField('token', $this->config['token']);
+		$request->setPostField('data', json_encode($data));
+		$request->send();
 	}
-
 }

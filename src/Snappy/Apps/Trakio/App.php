@@ -36,6 +36,13 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	public $icon = 'trakio.png';
 
 	/**
+	 * The application service's main website.
+	 *
+	 * @var string
+	 */
+	public $website = 'http://trak.io';
+
+	/**
 	 * The application author name.
 	 *
 	 * @var string

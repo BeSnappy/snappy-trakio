@@ -55,9 +55,9 @@ class App extends BaseApp implements ContactCreatedHandler, IncomingMessageHandl
 	 * @var array
 	 */
 	public $settings = array(
-		array('name' => 'token', 'type' => 'text', 'help' => 'Enter your API Token'),
-		array('name' => 'channel', 'placeholder' => 'Snappy', 'type' => 'text', 'help' => 'Trak.io Channel Name'),
-		array('name' => 'event', 'placeholder' => 'Incoming Message', 'type' => 'text', 'help' => 'Trak.io event name'),
+		array('name' => 'token', 'type' => 'text', 'help' => 'Enter your API Token', 'validate' => 'required'),
+		array('name' => 'channel', 'placeholder' => 'Snappy', 'type' => 'text', 'help' => 'Trak.io Channel Name', 'validate' => 'required'),
+		array('name' => 'event', 'placeholder' => 'Incoming Message', 'type' => 'text', 'help' => 'Trak.io event name', 'validate' => 'required'),
 	);
 
 	/**
